@@ -1,4 +1,4 @@
-import MyCustomEdge from './MyCustomEdge';
+import MyCustomEdge from './CustomEdge';
 
 const edgeTypes = {
   myCustomEdge: MyCustomEdge,

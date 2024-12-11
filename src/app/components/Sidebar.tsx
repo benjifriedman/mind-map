@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Image, Type, Link } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { Node, Edge } from 'reactflow'
+import CustomEdge from './CustomEdge'
 import { toJpeg } from 'html-to-image';
+import ReactFlow, { ReactFlowProvider, EdgeText } from 'reactflow';
 
 // Define color palette type
 interface ColorPair {
@@ -34,6 +36,17 @@ const colorPalette: ColorPair[] = [
   { bg: '#404040', text: '#FFFFFF' }, // Dark Gray
   { bg: '#000000', text: '#FFFFFF' }  // Black
 ]
+
+// Define edgeTypes outside the component
+const edgeTypes = {
+  custom: CustomEdge,
+  default: (props) => (
+    <EdgeText 
+      {...props} 
+      style={{ whiteSpace: 'pre-wrap' }} 
+    />
+  ),
+};
 
 interface SidebarProps {
   setNodes: (updater: (nodes: Node[]) => Node[]) => void
@@ -154,6 +167,27 @@ export default function Sidebar({
     }
   };
 
+  // Example of adding an edge with a custom type
+  const addCustomEdge = () => {
+    if (!selectedNode) {
+      console.error('No node selected to create an edge.');
+      return;
+    }
+
+    const sourceNodeId = selectedNode.id; // Use the selected node as the source
+    const targetNodeId = 'someTargetNodeId'; // Replace with logic to determine the target node ID
+
+    const newEdge: Edge = {
+      id: `e${Date.now()}`,
+      source: sourceNodeId,
+      target: targetNodeId,
+      type: 'custom',
+      data: { label: 'Line 1\nLine 2\nLine 3' }, // Multiline label
+    };
+
+    setEdges((eds) => eds.concat(newEdge));
+  };
+
   return (
     <div className="w-72 flex-shrink-0 border-l border-border bg-background text-foreground overflow-y-auto h-full">
       <div className="p-4">
@@ -212,11 +246,12 @@ export default function Sidebar({
         </div>
         <div className="mt-8">
           <h2 className="text-lg font-semibold mb-2">Edge Label</h2>
-          <Input
+          <textarea
             value={edgeLabel}
             onChange={handleEdgeLabelChange}
             placeholder="Enter edge label"
-            className="mb-2"
+            className="mb-2 w-full p-2 border rounded"
+            rows={3}
           />
           <Button 
             onClick={updateEdgeLabel} 
@@ -234,6 +269,14 @@ export default function Sidebar({
           <Button onClick={downloadImage} className="w-full">
             Download Mind Map as JPG
           </Button>
+        </div>
+        <Button onClick={addCustomEdge} className="w-full mt-2">
+          Add Custom Edge
+        </Button>
+        <div style={{ width: '100%', height: '400px' }}>
+          <ReactFlowProvider>
+            <ReactFlow edgeTypes={edgeTypes} />
+          </ReactFlowProvider>
         </div>
       </div>
     </div>
