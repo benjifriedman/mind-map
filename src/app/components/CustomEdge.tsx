@@ -23,7 +23,7 @@ const CustomEdge = ({
     targetPosition,
   });
 
-  const lines = data.label.split('\n');
+  const lines: string[] = data.label.split('\n');
 
   return (
     <>
@@ -40,7 +40,7 @@ const CustomEdge = ({
         textAnchor="middle"
         style={{ pointerEvents: 'none' }}
       >
-        {lines.map((line, index) => (
+        {lines.map((line: string, index: number) => (
           <tspan key={index} x={labelX} dy={index === 0 ? 0 : '1.2em'}>
             {line}
           </tspan>
