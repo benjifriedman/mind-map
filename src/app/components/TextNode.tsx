@@ -42,7 +42,7 @@ export default function TextNode({ data, isConnectable }: { data: TextNodeData; 
         onClick={handleInputClick}
         className="nodrag bg-transparent text-lg w-full h-full"
         style={{ color: data.textColor, resize: 'both' }}
-        rows={3}
+        rows={2}
       />
       <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} style={{ width: 12, height: 12 }} />
     </div>

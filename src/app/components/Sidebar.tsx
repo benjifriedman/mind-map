@@ -174,25 +174,25 @@ export default function Sidebar({
     }
   };
 
-  const addCustomEdge = () => {
-    if (!selectedNode) {
-      console.error('No node selected to create an edge.');
-      return;
-    }
+  // const addCustomEdge = () => {
+  //   if (!selectedNode) {
+  //     console.error('No node selected to create an edge.');
+  //     return;
+  //   }
 
-    const sourceNodeId = selectedNode.id;
-    const targetNodeId = 'someTargetNodeId'; // Replace with logic to determine the target node ID
+  //   const sourceNodeId = selectedNode.id;
+  //   const targetNodeId = 'someTargetNodeId'; // Replace with logic to determine the target node ID
 
-    const newEdge: Edge = {
-      id: `e${Date.now()}`,
-      source: sourceNodeId,
-      target: targetNodeId,
-      type: 'custom',
-      data: { label: 'Line 1\nLine 2\nLine 3' }, // Multiline label
-    };
+  //   const newEdge: Edge = {
+  //     id: `e${Date.now()}`,
+  //     source: sourceNodeId,
+  //     target: targetNodeId,
+  //     type: 'custom',
+  //     data: { label: 'Line 1\nLine 2\nLine 3' }, // Multiline label
+  //   };
 
-    setEdges((eds) => eds.concat(newEdge));
-  };
+  //   setEdges((eds) => eds.concat(newEdge));
+  // };
 
   return (
     <div className="w-72 flex-shrink-0 border-l border-border bg-background text-foreground overflow-y-auto h-full">
@@ -219,7 +219,7 @@ export default function Sidebar({
             ))}
           </div>
           <Button onClick={updateNodeColor} className="w-full mt-2">
-            Update Node
+            Update Node Color
           </Button>
         </div>
         <div className="mt-8">
@@ -276,9 +276,9 @@ export default function Sidebar({
             Download Mind Map as JPG
           </Button>
         </div>
-        <Button onClick={addCustomEdge} className="w-full mt-2">
+        {/* <Button onClick={addCustomEdge} className="w-full mt-2">
           Add Custom Edge
-        </Button>
+        </Button> */}
         <div style={{ width: '100%', height: '400px' }}>
           <ReactFlowProvider>
             <ReactFlow edgeTypes={edgeTypes} />
