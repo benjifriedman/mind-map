@@ -2,7 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import { Handle, Position } from 'reactflow'
 import { Input } from '@/components/ui/input'
 
-export default function TextNode({ data, isConnectable }) {
+type TextNodeData = {
+  label?: string;
+  backgroundColor: string;
+  textColor: string;
+  onChangeLabel?: (newText: string) => void;
+};
+
+export default function TextNode({ data, isConnectable }: { data: TextNodeData; isConnectable: boolean }) {
   const [text, setText] = useState(data.label || '')
   const [isFirstClick, setIsFirstClick] = useState(true)
   const inputRef = useRef(null)
@@ -18,7 +25,7 @@ export default function TextNode({ data, isConnectable }) {
     }
   }
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newText = e.target.value
     setText(newText)
     if (data.onChangeLabel) {

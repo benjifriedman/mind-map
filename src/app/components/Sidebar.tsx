@@ -119,7 +119,7 @@ export default function Sidebar({
     }
   }
 
-  const handleEdgeLabelChange = (e) => {
+  const handleEdgeLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = e.target.value;
     setEdgeLabel(newLabel);
 
@@ -139,7 +139,7 @@ export default function Sidebar({
   };
 
   const downloadImage = () => {
-    const reactFlowElement = document.querySelector('.react-flow');
+    const reactFlowElement = document.querySelector('.react-flow') as HTMLElement;
     if (reactFlowElement) {
       toJpeg(reactFlowElement, { quality: 0.95 })
         .then((dataUrl) => {

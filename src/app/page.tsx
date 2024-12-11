@@ -10,6 +10,8 @@ import ReactFlow, {
   addEdge,
   Connection,
   Edge,
+  Node,
+  BackgroundVariant, // Import BackgroundVariant type
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { useTheme } from 'next-themes'
@@ -28,8 +30,8 @@ export default function MindMap() {
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
   const [mounted, setMounted] = useState(false)
-  const [selectedNode, setSelectedNode] = useState(null)
-  const [selectedEdge, setSelectedEdge] = useState(null)
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null)
+  const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null)
   const [selectedEdgeColor, setSelectedEdgeColor] = useState('#000000') // Initialize selectedEdgeColor
 
   const onConnect = useCallback(
@@ -49,11 +51,11 @@ export default function MindMap() {
     [setEdges, selectedEdgeColor],
   )
 
-  const onNodeClick = useCallback((event, node) => {
-    setSelectedNode(node)
+  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
+    setSelectedNode((prevNode) => node)
   }, [])
 
-  const onEdgeClick = useCallback((event, edge) => {
+  const onEdgeClick = useCallback((event: React.MouseEvent, edge: Edge) => {
     event.preventDefault()
     setSelectedEdge(edge)
   }, [])
@@ -96,7 +98,7 @@ export default function MindMap() {
         >
           <Controls />
           <MiniMap />
-          <Background variant="dots" gap={12} size={1} />
+          <Background variant={'dots' as BackgroundVariant} gap={12} size={1} />
         </ReactFlow>
       </div>
       <Sidebar
