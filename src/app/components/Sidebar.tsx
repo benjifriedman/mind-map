@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CustomEdge from './CustomEdge';
-import { EdgeText, ReactFlow, ReactFlowProvider, EdgeProps } from 'reactflow';
+import { EdgeText, ReactFlow, ReactFlowProvider, EdgeProps, getBezierPath } from 'reactflow';
 import { Button } from '@/components/ui/button';
 import { Image, Type, Link } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
@@ -10,12 +10,25 @@ import { Node, Edge } from 'reactflow';
 // Define edgeTypes outside the component
 const edgeTypes = {
   custom: CustomEdge,
-  default: (props: EdgeProps) => (
-    <EdgeText 
-      {...props} 
-      style={{ whiteSpace: 'pre-wrap' }} 
-    />
-  ),
+  default: (props: EdgeProps) => {
+    const [edgePath, labelX, labelY] = getBezierPath({
+      sourceX: props.sourceX,
+      sourceY: props.sourceY,
+      sourcePosition: props.sourcePosition,
+      targetX: props.targetX,
+      targetY: props.targetY,
+      targetPosition: props.targetPosition,
+    });
+
+    return (
+      <EdgeText 
+        {...props} 
+        x={labelX} 
+        y={labelY} 
+        style={{ whiteSpace: 'pre-wrap' }} 
+      />
+    );
+  },
 };
 
 // Define color palette type
