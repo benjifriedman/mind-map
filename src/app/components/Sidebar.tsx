@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CustomEdge from './CustomEdge';
-import { EdgeText, ReactFlowProvider } from 'reactflow';
+import { EdgeText, ReactFlow, ReactFlowProvider } from 'reactflow';
 import { Button } from '@/components/ui/button';
 import { Image, Type, Link } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
