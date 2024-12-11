@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CustomEdge from './CustomEdge';
-import { EdgeText, ReactFlow, ReactFlowProvider } from 'reactflow';
+import { EdgeText, ReactFlow, ReactFlowProvider, EdgeProps } from 'reactflow';
 import { Button } from '@/components/ui/button';
 import { Image, Type, Link } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
@@ -10,7 +10,7 @@ import { Node, Edge } from 'reactflow';
 // Define edgeTypes outside the component
 const edgeTypes = {
   custom: CustomEdge,
-  default: (props) => (
+  default: (props: EdgeProps) => (
     <EdgeText 
       {...props} 
       style={{ whiteSpace: 'pre-wrap' }} 
