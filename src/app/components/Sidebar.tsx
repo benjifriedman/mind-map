@@ -1,7 +1,7 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { PlusCircle, Image, Type, Link } from 'lucide-react'
+import { Image, Type, Link } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { Node, Edge } from 'reactflow'
 import { toJpeg } from 'html-to-image';
@@ -78,10 +78,10 @@ export default function Sidebar({
     setNodes((nds) => nds.concat(newNode))
   }
 
-  const handleEdgeClick = (event: React.MouseEvent, edge: Edge) => {
-    event.stopPropagation()
-    console.log('Edge clicked:', edge)
-  }
+  // const handleEdgeClick = (event: React.MouseEvent, edge: Edge) => {
+  //   event.stopPropagation()
+  //   console.log('Edge clicked:', edge)
+  // }
 
   const updateEdgeLabel = () => {
     if (selectedEdge) {
