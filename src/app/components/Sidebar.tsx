@@ -200,10 +200,10 @@ export default function Sidebar({
         <h2 className="text-lg font-semibold mb-4">Add Node</h2>
         <div className="space-y-2">
           <Button onClick={() => addNode('textNode')} className="w-full">
-            <Type className="mr-2 h-4 w-4" alt="Add Text Node" /> Add Text Node
+            <Type className="mr-2 h-4 w-4" aria-label="Add Text Node" /> Add Text Node
           </Button>
           <Button onClick={() => addNode('imageNode')} className="w-full">
-            <Image className="mr-2 h-4 w-4" alt="Add Image Node" /> Add Image Node
+            <Image className="mr-2 h-4 w-4" aria-label="Add Image Node" /> Add Image Node
           </Button>
         </div>
         <div className="mt-8">
@@ -264,7 +264,7 @@ export default function Sidebar({
             className="w-full"
             disabled={!selectedEdge}
           >
-            <Link className="mr-2 h-4 w-4" alt="Update Edge" /> Update Edge
+            <Link className="mr-2 h-4 w-4" aria-label="Update Edge" /> Update Edge
           </Button>
         </div>
         <div className="mt-8">
