@@ -52,7 +52,7 @@ export default function MindMap() {
   )
 
   const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
-    setSelectedNode((prevNode) => node)
+    setSelectedNode(() => node)
   }, [])
 
   const onEdgeClick = useCallback((event: React.MouseEvent, edge: Edge) => {
