@@ -11,7 +11,7 @@ import { Node, Edge } from 'reactflow';
 const edgeTypes = {
   custom: CustomEdge,
   default: (props: EdgeProps) => {
-    const [edgePath, labelX, labelY] = getBezierPath({
+    const [, labelX, labelY] = getBezierPath({
       sourceX: props.sourceX,
       sourceY: props.sourceY,
       sourcePosition: props.sourcePosition,
@@ -79,7 +79,7 @@ export default function Sidebar({
   selectedEdgeColor, 
   setSelectedEdgeColor 
 }: SidebarProps) {
-  const [edgeLabel, setEdgeLabel] = useState('');
+  const [edgeLabel, setEdgeLabel] = useState<string>('');
   const [selectedNodeColor, setSelectedNodeColor] = useState<ColorPair>(colorPalette[0]);
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function Sidebar({
     }
   };
 
-  const handleEdgeLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEdgeLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newLabel = e.target.value;
     setEdgeLabel(newLabel);
 
@@ -200,10 +200,10 @@ export default function Sidebar({
         <h2 className="text-lg font-semibold mb-4">Add Node</h2>
         <div className="space-y-2">
           <Button onClick={() => addNode('textNode')} className="w-full">
-            <Type className="mr-2 h-4 w-4" /> Add Text Node
+            <Type className="mr-2 h-4 w-4" alt="Add Text Node" /> Add Text Node
           </Button>
           <Button onClick={() => addNode('imageNode')} className="w-full">
-            <Image className="mr-2 h-4 w-4" /> Add Image Node
+            <Image className="mr-2 h-4 w-4" alt="Add Image Node" /> Add Image Node
           </Button>
         </div>
         <div className="mt-8">
@@ -264,7 +264,7 @@ export default function Sidebar({
             className="w-full"
             disabled={!selectedEdge}
           >
-            <Link className="mr-2 h-4 w-4" /> Update Edge
+            <Link className="mr-2 h-4 w-4" alt="Update Edge" /> Update Edge
           </Button>
         </div>
         <div className="mt-8">
