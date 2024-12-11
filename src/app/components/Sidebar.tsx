@@ -1,17 +1,27 @@
-import { useState, useEffect, useMemo } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Image, Type, Link } from 'lucide-react'
-import { ThemeToggle } from './ThemeToggle'
-import { Node, Edge } from 'reactflow'
-import CustomEdge from './CustomEdge'
+import React, { useState, useEffect } from 'react';
+import CustomEdge from './CustomEdge';
+import { EdgeText, ReactFlowProvider } from 'reactflow';
+import { Button } from '@/components/ui/button';
+import { Image, Type, Link } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 import { toJpeg } from 'html-to-image';
-import ReactFlow, { ReactFlowProvider, EdgeText } from 'reactflow';
+import { Node, Edge } from 'reactflow';
+
+// Define edgeTypes outside the component
+const edgeTypes = {
+  custom: CustomEdge,
+  default: (props) => (
+    <EdgeText 
+      {...props} 
+      style={{ whiteSpace: 'pre-wrap' }} 
+    />
+  ),
+};
 
 // Define color palette type
 interface ColorPair {
-  bg: string
-  text: string
+  bg: string;
+  text: string;
 }
 
 const colorPalette: ColorPair[] = [
@@ -35,27 +45,16 @@ const colorPalette: ColorPair[] = [
   { bg: '#808080', text: '#FFFFFF' }, // Gray
   { bg: '#404040', text: '#FFFFFF' }, // Dark Gray
   { bg: '#000000', text: '#FFFFFF' }  // Black
-]
-
-// Define edgeTypes outside the component
-const edgeTypes = {
-  custom: CustomEdge,
-  default: (props) => (
-    <EdgeText 
-      {...props} 
-      style={{ whiteSpace: 'pre-wrap' }} 
-    />
-  ),
-};
+];
 
 interface SidebarProps {
-  setNodes: (updater: (nodes: Node[]) => Node[]) => void
-  setEdges: (updater: (edges: Edge[]) => Edge[]) => void
-  selectedNode: Node | null
-  selectedEdge: Edge | null
-  onChangeLabel: (nodeId: string, label: string) => void
-  selectedEdgeColor: string
-  setSelectedEdgeColor: (color: string) => void
+  setNodes: (updater: (nodes: Node[]) => Node[]) => void;
+  setEdges: (updater: (edges: Edge[]) => Edge[]) => void;
+  selectedNode: Node | null;
+  selectedEdge: Edge | null;
+  onChangeLabel: (nodeId: string, label: string) => void;
+  selectedEdgeColor: string;
+  setSelectedEdgeColor: (color: string) => void;
 }
 
 export default function Sidebar({ 
@@ -67,14 +66,14 @@ export default function Sidebar({
   selectedEdgeColor, 
   setSelectedEdgeColor 
 }: SidebarProps) {
-  const [edgeLabel, setEdgeLabel] = useState('')
-  const [selectedNodeColor, setSelectedNodeColor] = useState<ColorPair>(colorPalette[0])
+  const [edgeLabel, setEdgeLabel] = useState('');
+  const [selectedNodeColor, setSelectedNodeColor] = useState<ColorPair>(colorPalette[0]);
 
   useEffect(() => {
     if (selectedEdge) {
-      setEdgeLabel(String(selectedEdge.label || ''))
+      setEdgeLabel(String(selectedEdge.label || ''));
     }
-  }, [selectedEdge])
+  }, [selectedEdge]);
 
   const addNode = (type: 'textNode' | 'imageNode') => {
     const newNode: Node = {
@@ -87,14 +86,9 @@ export default function Sidebar({
         textColor: selectedNodeColor.text,
         onChangeLabel: (newLabel: string) => onChangeLabel(newNode.id, newLabel)
       },
-    }
-    setNodes((nds) => nds.concat(newNode))
-  }
-
-  // const handleEdgeClick = (event: React.MouseEvent, edge: Edge) => {
-  //   event.stopPropagation()
-  //   console.log('Edge clicked:', edge)
-  // }
+    };
+    setNodes((nds) => nds.concat(newNode));
+  };
 
   const updateEdgeLabel = () => {
     if (selectedEdge) {
@@ -104,13 +98,13 @@ export default function Sidebar({
             return {
               ...edge,
               label: edgeLabel,
-            }
+            };
           }
-          return edge
+          return edge;
         })
-      )
+      );
     }
-  }
+  };
 
   const updateNodeColor = () => {
     if (selectedNode) {
@@ -124,13 +118,13 @@ export default function Sidebar({
                 backgroundColor: selectedNodeColor.bg,
                 textColor: selectedNodeColor.text,
               },
-            }
+            };
           }
-          return node
+          return node;
         })
-      )
+      );
     }
-  }
+  };
 
   const handleEdgeLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = e.target.value;
@@ -167,14 +161,13 @@ export default function Sidebar({
     }
   };
 
-  // Example of adding an edge with a custom type
   const addCustomEdge = () => {
     if (!selectedNode) {
       console.error('No node selected to create an edge.');
       return;
     }
 
-    const sourceNodeId = selectedNode.id; // Use the selected node as the source
+    const sourceNodeId = selectedNode.id;
     const targetNodeId = 'someTargetNodeId'; // Replace with logic to determine the target node ID
 
     const newEdge: Edge = {
@@ -225,7 +218,7 @@ export default function Sidebar({
                 className={`w-8 h-8 rounded ${color.bg === selectedEdgeColor ? 'ring-2 ring-primary' : ''}`}
                 style={{ backgroundColor: color.bg }}
                 onClick={() => {
-                  setSelectedEdgeColor(color.bg)
+                  setSelectedEdgeColor(color.bg);
                   if (selectedEdge) {
                     setEdges((eds) =>
                       eds.map((edge) => {
@@ -233,11 +226,11 @@ export default function Sidebar({
                           return {
                             ...edge,
                             style: { ...edge.style, stroke: color.bg },
-                          }
+                          };
                         }
-                        return edge
+                        return edge;
                       })
-                    )
+                    );
                   }
                 }}
               />
@@ -280,5 +273,5 @@ export default function Sidebar({
         </div>
       </div>
     </div>
-  )
+  );
 }
