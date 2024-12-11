@@ -2,7 +2,13 @@ import { useState } from 'react'
 import { Handle, Position } from 'reactflow'
 import { Input } from '@/components/ui/input'
 
-export default function ImageNode({ data }) {
+type ImageNodeData = {
+  imageUrl?: string;
+  backgroundColor?: string;
+  textColor?: string;
+};
+
+export default function ImageNode({ data }: { data: ImageNodeData }) {
   const [imageUrl, setImageUrl] = useState(data.imageUrl || '')
 
   return (
