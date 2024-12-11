@@ -59,7 +59,7 @@ export default function Sidebar({
 
   useEffect(() => {
     if (selectedEdge) {
-      setEdgeLabel(selectedEdge.label || '')
+      setEdgeLabel(String(selectedEdge.label || ''))
     }
   }, [selectedEdge])
 
